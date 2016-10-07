@@ -28,6 +28,12 @@ var Engine = (function(global) {
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
+    var lives = 3;
+    ctx.font = "25px Really-Awesome";
+    ctx.fillText('Antons Frogger', 0, 45)
+    ctx.font = "18px Really-Awesome";
+    ctx.fillText('Use the arrow keys to get to the water. Watch out for the roaches!', 0, 598)
+  
 
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
@@ -69,7 +75,6 @@ var Engine = (function(global) {
         main();
     }
 
-    window.setTimeout(init, 5000)
 
     /* This function is called by main (our game loop) and itself calls all
      * of the functions which may need to update entity's data. Based on how

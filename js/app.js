@@ -33,14 +33,13 @@ Enemy.prototype.render = function( x , y ) {
 
 // Player Class
 var Player = function ( x, y ) {
+    
     this.x = x || 200;
     this.y = y || 405;
     this.width = 60;
     this.height = 60;
     this.sprite = 'images/char-boy.png'
-     if(this.y === -92){
-        console.log('hello')
-    } 
+    
 }
     
 // This class requires an update(), render() and
@@ -97,8 +96,10 @@ function collides(a,b){
 function checkCollisions () {
     allEnemies.forEach(function (enemy) {
         if(collides(enemy, player)){
-            alert('game over!!')
+            alert('game over!!');
+
             location.reload();
+            subtractLives();
         }
     })
 }
