@@ -6,7 +6,7 @@ var Enemy = function( x, y ) {
     var canvasWidth = 202, canvasHeight = 295
     this.x = x
     this.y = y
-    this.xVelocity = 1;
+    this.xVelocity = Math.random() * 1.8;
     this.yVelocity = 0;
     this.active = true;
     this.width = 60;
