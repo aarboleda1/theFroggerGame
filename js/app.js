@@ -2,11 +2,15 @@
 var Enemy = function( x, y ) {
     // Variables applied to each of our instances go here,
     //x and y coordinates are the coordinates on the board
-
+    var speedGenerator = Math.random() * 1.3;
+    if(speedGenerator < .5){
+        speedGenerator = .2
+    }
     var canvasWidth = 202, canvasHeight = 295
     this.x = x
     this.y = y
-    this.xVelocity = Math.random() * 1.8;
+
+    this.xVelocity = speedGenerator;
     this.yVelocity = 0;
     this.active = true;
     this.width = 60;
@@ -108,7 +112,7 @@ function checkCollisions () {
 /*Enemy Generation*/
 var allEnemies = [];
 //This calls the createEnemies function every 900 milliseconds to constantly generate new enemies
-window.setInterval(createEnemies, 800)
+window.setInterval(createEnemies, 900)
 //this function createsEnemies using JS builtin JS math.random to put it in any given column
 function createEnemies(){
     
