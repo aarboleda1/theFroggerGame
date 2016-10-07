@@ -54,13 +54,26 @@ Player.prototype.render = function ( x, y ) {
 Player.prototype.handleInput = function (position) {
     if(position === 'right'){
         player.x += 100;
-        
+        if(player.x > 400){
+            player.x = 400;
+        }
     } else if (position === 'left'){        
-        player.x -= 100;   
+        player.x -= 100; 
+        if(player.x < 0){
+            player.x = 0;
+        }
     } else if (position === 'up') {
-        player.y -= 83;   
+        player.y -= 83;  
+        console.log(player.y)
+        if(player.y < -15){
+            player.y = -15
+        } 
     } else if (position === 'down') {
         player.y += 83;   
+        if(player.y > 400){
+            player.y = 400
+        }
+        console.log(player.y)
 
     }
 
@@ -76,7 +89,7 @@ function createEnemies(){
 var enemyDecider = Math.random();
 var loc;
 if(enemyDecider < .33 && enemyDecider > 0){
-loc = 63
+    loc = 63
 allEnemies.push(new Enemy(0,loc))
 } else if (enemyDecider > .33 && enemyDecider < .66){
     loc =  143
