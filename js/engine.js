@@ -105,6 +105,7 @@ var Engine = (function(global) {
         
 
         player.update();
+        //obstacle.update(dt);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -160,8 +161,10 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             enemy.render();
         });
+       // console.log(obstacle)
 
         player.render();
+        obstacle.render();
     }
 
     /* This function does nothing but it could have been a good place to

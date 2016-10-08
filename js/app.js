@@ -1,3 +1,33 @@
+/*Create an obstacle class to create a bit more dificulty in the game */
+ var Obstacle = function () {
+     this.sprite = 'images/stone-block.png';
+     var xLoc = Math.random();
+     if(xLoc > 0 && xLoc < .25){
+        xLoc = 0
+     }else if (xLoc > .25 && xLoc < .5) {
+        xLoc = 100
+     }  else if (xLoc > .5 && xLoc < .75) {
+        xLoc = 305
+     } else if (xLoc > .75 && xLoc < 1) {
+        xLoc = 405
+     }
+     
+     this.x = xLoc;
+     this.y = 415;
+     this.yVelocity = 1;
+     this.width = 80; 
+     this.height = 80;
+
+ }
+  var obstacle = new Obstacle();
+
+ Obstacle.prototype.render = function () {  
+  //ctx.drawImage(Resources.get(this.sprite), this.x, this.y)
+ }
+
+
+
+ //var obstacle = new Obstacle();
 // Enemies the player must avoid
 var Enemy = function( x, y ) {
     // Variables applied to each of our instances go here,
@@ -62,8 +92,10 @@ Player.prototype.render = function ( x, y ) {
 Player.prototype.handleInput = function (position) {
     if(position === 'right'){
         this.x += 100;
+        console.log('right')
         if(this.x > 400){
             this.x = 400;
+
         }
     } else if (position === 'left'){        
         this.x -= 100; 
@@ -77,6 +109,7 @@ Player.prototype.handleInput = function (position) {
             this.y = -10
             if(this.y === -10){
         alert('you win!!!')
+
         location.reload();
         } 
         } 
@@ -106,6 +139,22 @@ function checkCollisions () {
             subtractLives();
         }
     })
+
+    if(collides(obstacle, player)){
+        //alert('don\'t run into the wall')
+        //location.reload();
+         if(player.x - obstacle.x < 100){
+         player.x = player.x -100
+         player.y = obstacle.y - 93
+         } else if(player.y - obstacle.y  < 100){
+            player.y = obstacle.y - 93
+        }
+        //player.y = player.y -100
+        //player.y = player.y -100
+        console.log(obstacle.x)
+        console.log(player.x + 'helloooooo')
+        console.log('collision')
+    }
 }
 
 
@@ -145,6 +194,8 @@ document.addEventListener('keyup', function(e) {
     };
 
     player.handleInput(allowedKeys[e.keyCode]);
+
+
 });
 
 
