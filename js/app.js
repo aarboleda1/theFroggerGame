@@ -72,13 +72,12 @@ var Player = function ( x, y ) {
     this.y = y || 405;
     this.width = 60;
     this.height = 60;
-    this.sprite = 'images/char-boy.png'
+    this.sprite = 'images/char-boy.png'    
     
 }
     
 // This class requires an update(), render() and
 Player.prototype.update = function () {
-    
 
 };  
 
@@ -88,17 +87,33 @@ Player.prototype.render = function ( x, y ) {
 
 
 };
+
+/*Score Detection*/
+var score = 0;
+function drawScore (){
+    ctx.clearRect(0,0, 505, 606)
+    ctx.font = "18px Really-Awesome";
+    ctx.fillText("Score: "+ score, 425, 48);
+    ctx.font = "25px Really-Awesome";
+    ctx.fillText('Antons Frogger', 0, 45)
+    ctx.font = "18px Really-Awesome";
+    ctx.fillText('Get to the water 5 times without getting hit by the ladybugs!', 0, 598)
+if(score === 5){
+    alert('bravo, you beat this game!!')
+    location.reload()
+}
+
+}
+
 // a handleInput() method.
 Player.prototype.handleInput = function (position) {
     if(position === 'right'){
-        this.x += 100;
-        console.log('right')
+        this.x += 99;
         if(this.x > 400){
             this.x = 400;
-
-        }
+        }        
     } else if (position === 'left'){        
-        this.x -= 100; 
+        this.x -= 99; 
         if(this.x < 0){
             this.x = 0;
         }
@@ -107,11 +122,12 @@ Player.prototype.handleInput = function (position) {
         console.log(player.y)
         if(this.y < -10){
             this.y = -10
-            if(this.y === -10){
-        alert('you win!!!')
-
-        location.reload();
-        } 
+            if(this.y < 0){
+              this.y = 400;
+              score++
+              drawScore(score);
+              //location.reload();
+            } 
         } 
     } else if (position === 'down') {
         this.y += 83;   
@@ -129,32 +145,56 @@ function collides(a,b){
     && a.y < b.y + b.height 
     && a.y + b.height > b.y;
 }
-
+var messages = ['ouch that one hurt, try again buddy','ya dead mon, try again and get to 5!',  'splat!!!', 'bet you can\'t get to 5', 'whupah! you\'re dead, this time, watch out for the bugs']
 function checkCollisions () {
     allEnemies.forEach(function (enemy) {
+        
         if(collides(enemy, player)){
-            alert('game over!!');
+            var num = Math.random() 
+            if(num > 0 && num < .2){
+                num = 0
+            }else if(num >= 0.2 && num <= .4){
+                num = 1
+            }else if(num >= .4 && num <= .6){
+                num = 2
+            } else if(num >= .6 && num <= .8){
+                num = 3
+            }else   if(num >= .8 && num  <= 1){
+                num = 4
+            }
+            alert(messages[num]);
 
             location.reload();
-            subtractLives();
+            
         }
     })
 
-    if(collides(obstacle, player)){
-        //alert('don\'t run into the wall')
-        //location.reload();
-         if(player.x - obstacle.x < 100){
-         player.x = player.x -100
-         player.y = obstacle.y - 93
-         } else if(player.y - obstacle.y  < 100){
-            player.y = obstacle.y - 93
-        }
-        //player.y = player.y -100
-        //player.y = player.y -100
-        console.log(obstacle.x)
-        console.log(player.x + 'helloooooo')
-        console.log('collision')
-    }
+    // if(collides(obstacle, player)){
+    //     //alert('don\'t run into the wall')
+    //     //location.reload();
+    //      // if(player.x - obstacle.x < 100){
+    //      // console.log('hi')
+    //      // console.log(player.x)
+    //      // console.log(obstacle.x)
+  
+    //      // player.x = player.x -100;
+    //      // } else if (  player.x - obstacle.x > 0 ) {
+    //      //    console.log('whatuppp')
+    //      //    player.x = player.x + 100;
+    //      // } 
+    //    //console.log('collision')
+    //    console.log(player.x + 'player')
+    //           console.log(obstacle.x +' obst')
+
+    //    if(player.x > obstacle.x){
+    //     console.log('collision from right')
+    //     player.x = player.x - 99
+    //    } else if (player.x < obstacle.x) {
+    //     console.log('collision from left')
+    //     player.x = player.x - 99
+    //    }
+      
+    // }
 }
 
 
@@ -167,13 +207,13 @@ function createEnemies(){
     
     var enemyDecider = Math.random();
     var y;
-    if(enemyDecider < .33 && enemyDecider > 0){
+    if(enemyDecider <= .33 && enemyDecider >= 0){
         y = 63
     allEnemies.push(new Enemy(0, y))
-    } else if (enemyDecider > .33 && enemyDecider < .66){
+    } else if (enemyDecider >= .33 && enemyDecider <= .66){
         y =  143
         allEnemies.push(new Enemy(0, y))
-    } else if (enemyDecider > .66 && enemyDecider < .99){
+    } else if (enemyDecider >= .66 && enemyDecider <= .99){
         y =  230
         allEnemies.push(new Enemy(0,y))
     }  
@@ -197,13 +237,6 @@ document.addEventListener('keyup', function(e) {
 
 
 });
-
-
-
-
-
-
-
 
 
 

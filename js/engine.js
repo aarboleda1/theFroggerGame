@@ -24,17 +24,21 @@ var Engine = (function(global) {
         canvas = doc.createElement('canvas'),
         ctx = canvas.getContext('2d'),
         lastTime;
+       
 
     canvas.width = 505;
     canvas.height = 606;
     doc.body.appendChild(canvas);
-    var lives = 3;
     ctx.font = "25px Really-Awesome";
     ctx.fillText('Antons Frogger', 0, 45)
     ctx.font = "18px Really-Awesome";
-    ctx.fillText('Use the arrow keys to get to the water. Watch out for the roaches!', 0, 598)
-  
+    ctx.fillText('Get to the water 5 times without getting hit by the ladybugs!', 0, 598)
+   
 
+
+
+
+    
     /* This function serves as the kickoff point for the game loop itself
      * and handles properly calling the update and render methods.
      */
@@ -88,6 +92,7 @@ var Engine = (function(global) {
     function update(dt) {
         updateEntities(dt);
          checkCollisions();
+         drawScore();
 
     }
 
@@ -164,7 +169,7 @@ var Engine = (function(global) {
        // console.log(obstacle)
 
         player.render();
-        obstacle.render();
+        //obstacle.render();
     }
 
     /* This function does nothing but it could have been a good place to
